@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, jsonify, render_template
+from flask import session
 from flask_cors import CORS
 from huggingface_hub import InferenceClient
 import base64
@@ -10,7 +11,7 @@ from PIL import Image
 
 app = Flask(__name__, template_folder="../templates")
 CORS(app)
-
+app.secret_key = "some-random-secret-key"
 # === CONFIG ===
 API_KEY = "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"
 DEFAULT_PROMPT = "Describe this image in very brief."
@@ -49,8 +50,10 @@ def index():
 def caption():
     
     image = request.files['image']
-    global base64_image
+	session['base64_image'] = base64_image
+    #global base64_image
     base64_image = encode_image_to_base64(image)
+    session['base64_image'] = base64_image
     caption = generate_caption(DEFAULT_PROMPT, base64_image)
     caption = caption.replace('**', '')
 
@@ -60,6 +63,7 @@ def caption():
 def voice_query():
     data = request.get_json()
     prompt = data.get('prompt')
+    base64_image = session.get('base64_image')
     caption = generate_caption(prompt, base64_image)
     caption = caption.replace('**', '')
 
