@@ -6,7 +6,7 @@ Ask Jaggu is an intelligent AI chatbot designed to interpret images and engage i
 🚀 Features
 📷 Image Input: Upload images for instant analysis and feedback.
 
-💬 Conversational Interface: Chat naturally with Jaggu about image contents.
+💬 Conversational Interface: Chat naturally using Voice with Jaggu about image contents.
 
 🧠 Powered by Gemma-3: Leverages the fine-tuned google/gemma-3-27b-it for image-grounded conversations.
 
